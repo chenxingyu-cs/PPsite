@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
 from disk.models import Project, Version
+from django.contrib import messages
 
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
@@ -47,7 +48,7 @@ def detail(request, project_id):
                 project.mod_date = upload_date
                 project.save()
             else:
-                return HttpResponse('Wrong fomat!!!')
+                messages.error(request, 'Wrong fomat!!!')
     else:
         uf = VersionForm()
     return render(request, 'detail.html', {'project': project, 'uf':uf})
