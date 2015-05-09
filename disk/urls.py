@@ -8,6 +8,10 @@ urlpatterns = [
     # Examples:
     # url(r'^$', views.home, name='home'),
     url(r'^$', views.index, name='index'),
+    url(r'^Project(?P<project_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^createProject$', views.createProject, name='createProject'),
+    url(r'^Project(?P<project_id>[0-9]+)/Version(?P<version_id>[0-9]+)/$', 
+            views.instruction, name='instruction'),
 ]
 
 if settings.DEBUG:

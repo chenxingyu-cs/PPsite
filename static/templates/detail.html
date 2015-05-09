@@ -1,4 +1,4 @@
-{% extends "disk/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
       <a class="navbar-brand" href="/disk">Psite</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right" method="post" action="/login/logout">
+      <form class="navbar-form navbar-right" method="post" action="/signout/">
       {% csrf_token %}
         <button type="submit" class="btn btn-danger">Sign out</button>
       </form>

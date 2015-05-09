@@ -1,9 +1,10 @@
-{% extends "disk/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
+{{file_path}}
 
-<a class="media" href="../../../{{file_path}}"></a>
+<a class="media" href="/media/{{file_path}}"></a>
 
 <!--     {% for version in a %}
 
