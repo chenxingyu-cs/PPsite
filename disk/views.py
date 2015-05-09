@@ -29,7 +29,7 @@ def index(request):
     context =  {'latest_project_list': latest_project_list, 'u':u}
     return render(request, 'index.html', context)
 
-
+@login_required
 def detail(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     if request.method == "POST":
@@ -52,7 +52,7 @@ def detail(request, project_id):
         uf = VersionForm()
     return render(request, 'detail.html', {'project': project, 'uf':uf})
 
-
+@login_required
 def createProject(request):
     if request.POST:
         user_id = request.user.id
@@ -68,7 +68,7 @@ def createProject(request):
     ctx.update(csrf(request))
     return HttpResponseRedirect('/disk/')
 
-
+@login_required
 def instruction(request, project_id, version_id):
     currentVersion = Version.objects.get(id=version_id)
     file_path = currentVersion.head_img
