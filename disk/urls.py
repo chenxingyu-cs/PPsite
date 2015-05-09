@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -7,14 +6,8 @@ from . import views
 
 urlpatterns = [
     # Examples:
-    url(r'^$', views.home, name='home'),
-    # url(r'^blog/', include('blog.urls')),
-    url(r'^disk/', include('disk.urls', namespace='disk')),
-
-    url(r'^signin/', views.sign_in, name='sign_in'),
-    url(r'^signout/', views.sign_out, name='sign_out'),
-
-    url(r'^admin/', include(admin.site.urls)),
+    # url(r'^$', views.home, name='home'),
+    url(r'^$', views.index, name='index'),
 ]
 
 if settings.DEBUG:

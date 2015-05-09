@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'disk',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -114,4 +115,5 @@ STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static', 'static'),
     )
 
+LOGIN_URL = '/signin/'
 

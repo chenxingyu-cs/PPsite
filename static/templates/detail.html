@@ -1,0 +1,69 @@
+{% extends "disk/base.html" %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/disk">Psite</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <form class="navbar-form navbar-right" method="post" action="/login/logout">
+      {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sign out</button>
+      </form>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>
+
+<h1>{{ project.project_name }}</h1>
+<div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Project </th>
+                        <th> Publish date </th>
+                        <th> Modify date </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if project.version_set.count != 0 %}
+                    {% for version in project.version_set.all %}
+                    <tr>
+                        <td> {{forloop.counter}} </td>
+                        <td>
+                            <a href="{% url 'disk:instruction' project.id version.id  %}">{{ version.version_name }}</a>
+                        </td>
+                        <td> {{ version.upload_date }} </td>
+                        <td>  {{ version.upload_date }} </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <p>No version is available. Please upload the first version.</p>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="col-md-3 column">
+    <form role="form" action="{% url 'disk:detail' project.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <label>Create a new version:</label>
+        {{uf.as_p}}
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+
+{% endblock %}

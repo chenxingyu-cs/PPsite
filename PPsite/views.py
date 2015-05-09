@@ -17,8 +17,7 @@ def sign_in(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                # return HttpResponseRedirect('/disk/')
-                return HttpResponse('Sign in success!')
+                return HttpResponseRedirect('/disk/')
             else:
                 #return HttpResponseRedirect('/login/')
                 return HttpResponseRedirect('')
@@ -26,5 +25,5 @@ def sign_in(request):
 
 def sign_out(request):
     logout(request)
-    return render('home.html')
+    return render_to_response('home.html')
 
