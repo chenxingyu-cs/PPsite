@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.context_processors import csrf
 from disk.models import Project, Version
 from django.contrib import messages
+from django.conf import settings
 
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
@@ -18,6 +19,11 @@ from pdfminer.pdfdevice import PDFDevice
 from pdfminer.layout import LAParams
 from pdfminer.converter import PDFPageAggregator
 from pdfminer.layout import * 
+
+import os
+from whoosh.index import create_in, open_dir
+from whoosh.fields import *
+from whoosh.qparser import QueryParser
 
 
 class VersionForm(forms.Form):
@@ -73,24 +79,34 @@ def createProject(request):
 def instruction(request, project_id, version_id):
     currentVersion = Version.objects.get(id=version_id)
     file_path = currentVersion.head_img
-    a = ''
-    file_path.open()
-    parser = PDFParser(file_path)
-    document = PDFDocument(parser, '')
-    if not document.is_extractable:
-        raise PDFTextExtractionNotAllowed
-    rsrcmgr = PDFResourceManager()
-    laparams = LAParams()
-    device = PDFPageAggregator(rsrcmgr, laparams=laparams)
-    interpreter = PDFPageInterpreter(rsrcmgr, device)
-    a = ['result', ]
-    for page in PDFPage.create_pages(document):
-        interpreter.process_page(page)
-        layout = device.get_result()
-        for x in layout:
-            if(isinstance(x, LTTextBox)):
-                string = x.get_text()
-                if(string != u'\n'):
-                    a.append(string)
-    file_path.close()
+    a = []
+    if request.POST:
+        ix = open_dir(os.path.join(settings.BASE_DIR, 'static', 'media', 'index'))
+        searcher = ix.searcher()
+        with ix.searcher() as searcher:
+            query = QueryParser("content", ix.schema).parse("algorithm")
+            results = searcher.search(query)
+            for result in results:
+                a.append(result)
+            print a
     return render(request, 'instruction.html', {'a':a, 'file_path':file_path })
+    # file_path.open()
+    # parser = PDFParser(file_path)
+    # document = PDFDocument(parser, '')
+    # if not document.is_extractable:
+    #     raise PDFTextExtractionNotAllowed
+    # rsrcmgr = PDFResourceManager()
+    # laparams = LAParams()
+    # device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+    # interpreter = PDFPageInterpreter(rsrcmgr, device)
+    # a = ['result', ]
+    # for page in PDFPage.create_pages(document):
+    #     interpreter.process_page(page)
+    #     layout = device.get_result()
+    #     for x in layout:
+    #         if(isinstance(x, LTTextBox)):
+    #             string = x.get_text()
+    #             if(string != u'\n'):
+    #                 a.append(string)
+    # file_path.close()
+    
