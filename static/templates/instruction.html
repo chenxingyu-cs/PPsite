@@ -20,7 +20,7 @@
     </div>
 </nav>
 
-
+{{file_path}}
 <div class='row'>
     <div class="col-md-9 column">
         <a class="media" href="/media/{{file_path}}"></a>
@@ -48,7 +48,7 @@
                     {% for aa in a %}
                     <tr>
                         <td>
-                            {{ aa.stc }}</a>
+                            <a href="/media/papers/{{aa.path}}">{{ aa.stc }}</a>
                         </td>
                     </tr>
                     {% endfor %}
