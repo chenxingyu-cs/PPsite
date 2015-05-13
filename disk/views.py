@@ -27,7 +27,7 @@ from whoosh.qparser import QueryParser
 
 
 class VersionForm(forms.Form):
-    head_img = forms.FileField()
+    upload_file = forms.FileField()
 
 @login_required
 def index(request):
@@ -109,4 +109,7 @@ def instruction(request, project_id, version_id):
     #             if(string != u'\n'):
     #                 a.append(string)
     # file_path.close()
+
+
+
     
