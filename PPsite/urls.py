@@ -13,6 +13,9 @@ urlpatterns = [
 
     url(r'^signin/', views.sign_in, name='sign_in'),
     url(r'^signout/', views.sign_out, name='sign_out'),
+    url(r'^signup/', views.sign_up, name='sign_up'),
+    url(r'^deleteVersion(?P<version_id>[0-9]+)/$', views.deleteVersion, name='deleteVersion'),
+    url(r'^deleteProject(?P<project_id>[0-9]+)/$', views.deleteProject, name='deleteProject'),
 
     url(r'^admin/', include(admin.site.urls)),
 ]

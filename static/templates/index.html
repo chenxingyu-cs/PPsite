@@ -33,6 +33,7 @@
                         <th> Project </th>
                         <th> Publish date </th>
                         <th> Modify date </th>
+                        <th> Operation </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,7 @@
                         </td>
                         <td> {{ project.pub_date }} </td>
                         <td>  {{ project.mod_date }} </td>
+                        <td>  <a type="button" href="{% url 'deleteProject' project.id %}" class="btn btn-sm btn-danger">Delete</button> </td>
                     </tr>
                     {% endfor %}
                 {% else %}

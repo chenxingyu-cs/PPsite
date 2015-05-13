@@ -1,6 +1,8 @@
 from django.shortcuts import render, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.models import User
+from disk.models import Project, Version
 
 # Create your views here.
 
@@ -27,3 +29,19 @@ def sign_out(request):
     logout(request)
     return render_to_response('home.html')
 
+def sign_up(request):
+    if request.POST:
+        userName = request.POST['userName']
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.objects.create_user(username = userName, email=email, password=password)
+        return HttpResponseRedirect('/disk/')
+    return render(request, 'signup.html')
+
+def deleteVersion(request, version_id):
+    Version.objects.filter(id=version_id).delete()
+
+def deleteProject(request, project_id):
+    Version.objects.filter(project_id=project_id).delete()
+    Project.objects.filter(id=project_id).delete()
+    return HttpResponseRedirect('/disk/')
