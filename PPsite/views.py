@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from disk.models import Project, Version
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -45,3 +46,9 @@ def deleteProject(request, project_id):
     Version.objects.filter(project_id=project_id).delete()
     Project.objects.filter(id=project_id).delete()
     return HttpResponseRedirect('/disk/')
+
+def searchKeyword(request):
+    if request.GET:
+        keyword = request.GET['keyword']
+        response = JsonResponse([{'path': 'bar', 'stc': 'xxx'}], safe=False)
+        return response
