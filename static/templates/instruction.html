@@ -19,31 +19,21 @@
         <!--/.navbar-collapse -->
     </div>
 </nav>
-
 <div class='row'>
-    <div class="col-md-9 column">
+    <div class="col-md-8 column" >
         <a class="media" href="/media/{{file_path}}"></a>
     </div>
-</div>
-
-<div class="search-result">
-    <div class='row'>
-        <div class="col-md-3 column">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Question word:</label>
-                    <input type="text" id="searchKeyword"placeholder="Question word" class="form-control" name="questionWord">
-                </div>
-                <button type="button" class="btn btn-default" id="searchButton">Submit</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="row clearfix">
-            <div class="col-md-12 column">
-                <table class="table">
-                    <tbody id = "searchResult">
-                    <!-- {% if a.count != 0 %}
+    <div class="col-md-3 column" style="margin-top: 30px;">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Question word:</label>
+                <input type="text" id="searchKeyword" placeholder="Question word" class="form-control" name="questionWord">
+            </div>
+            <button type="button" class="btn btn-default" id="searchButton">Submit</button>
+        </form>
+        <table class="table">
+            <tbody id="searchResult">
+                <!-- {% if a.count != 0 %}
                         {% for aa in a %}
                         <tr>
                             <td>
@@ -52,16 +42,13 @@
                         </tr>
                         {% endfor %}
                     {% endif %} -->
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
     </div>
-</div>
-
-<!--     {% for version in a %}
+    <!--     {% for version in a %}
 
         <p3> {{version}}</p3>
         <br>
 
     {% endfor %} -->
-{% endblock %}
+    {% endblock %}

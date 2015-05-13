@@ -4,6 +4,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from disk.models import Project, Version
 from django.http import JsonResponse
+from django.conf import settings
+
+import os
+from whoosh.index import create_in, open_dir
+from whoosh.fields import *
+from whoosh.qparser import QueryParser
 
 # Create your views here.
 
@@ -50,5 +56,16 @@ def deleteProject(request, project_id):
 def searchKeyword(request):
     if request.GET:
         keyword = request.GET['keyword']
-        response = JsonResponse([{'path': 'bar', 'stc': 'xxx'}], safe=False)
+        jResult = []
+        ix = open_dir(os.path.join(settings.BASE_DIR, 'static', 'media', 'index'))
+        searcher = ix.searcher()
+        with ix.searcher() as searcher:
+            query = QueryParser("content", ix.schema).parse("algorithm")
+            results = searcher.search(query)
+            for hit in results:
+                stc = hit['stc'].replace('\n','')
+                str = {'path': hit['path'] , 'stc': stc}
+                jResult.append(str)
+        print jResult
+        response = JsonResponse(jResult, safe=False)
         return response
