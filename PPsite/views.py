@@ -60,12 +60,11 @@ def searchKeyword(request):
         ix = open_dir(os.path.join(settings.BASE_DIR, 'static', 'media', 'index'))
         searcher = ix.searcher()
         with ix.searcher() as searcher:
-            query = QueryParser("content", ix.schema).parse("algorithm")
+            query = QueryParser("content", ix.schema).parse(keyword)
             results = searcher.search(query)
             for hit in results:
                 stc = hit['stc'].replace('\n','')
                 str = {'path': hit['path'] , 'stc': stc}
                 jResult.append(str)
-        print jResult
         response = JsonResponse(jResult, safe=False)
         return response
