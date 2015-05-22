@@ -27,7 +27,7 @@ from whoosh.qparser import QueryParser
 
 
 class VersionForm(forms.Form):
-    upload_file = forms.FileField()
+    head_img = forms.FileField()
 
 @login_required
 def index(request):
